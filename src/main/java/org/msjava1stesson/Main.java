@@ -2,14 +2,23 @@ package org.msjava1stesson;
 
 import org.msjava1stesson.model.Car;
 import org.msjava1stesson.model.User;
+import org.msjava1stesson.service.Bike;
+import org.msjava1stesson.service.Vehicle;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArraySet;
 
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
 
         System.out.println("Hello world!");
 
@@ -149,6 +158,78 @@ public class Main {
         numbs[0] = 10;
         System.out.println(numbs);
 
+
+//        Throwable th = new Throwable();
+//
+//        Error er = new Error();
+//
+//        StackOverflowError ers = new StackOverflowError();
+//
+//        OutOfMemoryError oome = new OutOfMemoryError();
+
+//        StackOverflowError ers = new StackOverflowError();
+//        ers.printStackTrace();
+//        ers.printStackTrace(System.out);
+//        ers.printStackTrace(System.err);
+
+    //    Exception ex = new Exception();
+
+        RuntimeException rte = new RuntimeException();
+
+        double res = divide(6,0);
+        System.out.println(res);
+
+
+        witeFile("File.txt","ssss");
+        witeFile("File.txt","ssss1");
+        fwrite("File1.txt","ssss1");
+
+        List<String> scos = Files.readAllLines(Path.of("File.txt"));
+        System.out.println(scos);
+
+        Vehicle bike = new Bike();
+        Vehicle car = new org.msjava1stesson.service.Car();
+
+        Vehicle[] vehicles = {bike,car};
+
+        for (Vehicle v: vehicles) {
+            v.start();
+            System.out.println(v.getInfo());
+            v.stop();
+            System.out.println(v.getInfo());
+
+            v.isRunning();
+        }
+
+        // PECs
+        // Generics
+        // Collections
+
+       // Collection
+    }
+
+    private static void fwrite(String name, String content) throws IOException {
+
+       byte [] bytes = content.getBytes(StandardCharsets.UTF_8);
+        Files.write(Path.of(name), bytes);
+    }
+
+    private static void witeFile(String name, String content) {
+        try(BufferedWriter bw = new BufferedWriter(new FileWriter(name, true))) {
+            bw.flush();
+            bw.write(content);
+            bw.newLine();
+            bw.close();
+        }
+        catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+
+    }
+
+
+    public static double divide(double a, double b) {
+        return a / b;
     }
 
     private static void prin()
