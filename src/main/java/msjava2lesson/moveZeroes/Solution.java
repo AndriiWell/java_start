@@ -13,29 +13,27 @@ public class Solution {
             throw new ArrayInvalidException("Array is out of Constraints.");
         }
 
-        int i_value_to_move_to_rear = 0;
-        int i_index = -1;
-        int i_iterate_value;
+        int i_value_to_move_to_rear = 0; // Here may be any value, the zero value is just the task condition.
+        int i_earliest_value_index_to_move = -1; // Index of value to move to rear of array.
+        int i_iterate_value; // Current value in the cycle iteration.
 
         for (int i_num = 0; i_num < i_num_length; i_num++)
         {
             i_iterate_value = a_num[i_num];
             if(i_value_to_move_to_rear == i_iterate_value)
             {
-                if(i_index == -1)
-                    i_index = i_num;
-
+                if(i_earliest_value_index_to_move == -1)
+                    i_earliest_value_index_to_move = i_num;
             }
             else
             {
-                   if(i_index == -1)
-                       continue;
+                if(i_earliest_value_index_to_move == -1) // case when array starts not from the i_value_to_move_to_rear value.
+                   continue;
 
-                   a_num[i_index] = a_num[i_num];
-                   a_num[i_num] = i_value_to_move_to_rear;
-                   i_index++;
+                a_num[i_earliest_value_index_to_move] = a_num[i_num];
+                a_num[i_num] = i_value_to_move_to_rear;
+                i_earliest_value_index_to_move++;
             }
-
         }
 
         return a_num;

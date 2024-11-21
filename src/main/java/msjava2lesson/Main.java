@@ -86,5 +86,8 @@ public class Main {
         a_num_output = solution.moveZeroes(a_num_input_h);
         System.out.println("a_num_output");
         System.out.println(Arrays.toString(a_num_output));
+
+        int[] a_num_input_except = {};
+        solution.moveZeroes(a_num_input_except);
     }
 }
