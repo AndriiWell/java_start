@@ -7,87 +7,91 @@ import java.util.Arrays;
 public class Main {
     public static void main(String[] args) {
 
+        taskMoveZeros();
+    }
+
+    private static void taskMoveZeros() {
         Solution solution = new Solution();
 
-        int[] a_num_input_a = {0,1,0,3,12};
-        System.out.println("a_num_input A");
-        System.out.println(Arrays.toString(a_num_input_a));
+        int[] aNumInputA = {0,1,0,3,12};
+        System.out.println("aNumInputA");
+        System.out.println(Arrays.toString(aNumInputA));
 
-        int[] a_num_output = solution.moveZeroes(a_num_input_a);
-        System.out.println("a_num_output");
-        System.out.println(Arrays.toString(a_num_output));
+        int[] aNumOutput = solution.moveZeroes(aNumInputA);
+        System.out.println("aNumOutput");
+        System.out.println(Arrays.toString(aNumOutput));
         System.out.println("\n");
 
 
-        int[] a_num_input_b = {0};
-        System.out.println("a_num_input B");
-        System.out.println(Arrays.toString(a_num_input_b));
+        int[] aNumInputB = {0};
+        System.out.println("aNumInputB");
+        System.out.println(Arrays.toString(aNumInputB));
 
-        a_num_output = solution.moveZeroes(a_num_input_b);
-        System.out.println("a_num_output");
-        System.out.println(Arrays.toString(a_num_output));
+        aNumOutput = solution.moveZeroes(aNumInputB);
+        System.out.println("aNumOutput");
+        System.out.println(Arrays.toString(aNumOutput));
         System.out.println("\n");
 
 
-        int[] a_num_input_c = {0,0,1,0,0,0,9,9,0,0,0,0,0,6};
-        System.out.println("a_num_input C");
-        System.out.println(Arrays.toString(a_num_input_c));
+        int[] aNumInputC = {0,0,1,0,0,0,9,9,0,0,0,0,0,6};
+        System.out.println("aNumInputC");
+        System.out.println(Arrays.toString(aNumInputC));
 
-        a_num_output = solution.moveZeroes(a_num_input_c);
-        System.out.println("a_num_output");
-        System.out.println(Arrays.toString(a_num_output));
+        aNumOutput = solution.moveZeroes(aNumInputC);
+        System.out.println("aNumOutput");
+        System.out.println(Arrays.toString(aNumOutput));
         System.out.println("\n");
 
 
-        int[] a_num_input_d = {3,0};
-        System.out.println("a_num_input D");
-        System.out.println(Arrays.toString(a_num_input_d));
+        int[] aNumInputD = {3,0};
+        System.out.println("aNumInputD");
+        System.out.println(Arrays.toString(aNumInputD));
 
-        a_num_output = solution.moveZeroes(a_num_input_d);
-        System.out.println("a_num_output");
-        System.out.println(Arrays.toString(a_num_output));
+        aNumOutput = solution.moveZeroes(aNumInputD);
+        System.out.println("aNumOutput");
+        System.out.println(Arrays.toString(aNumOutput));
         System.out.println("\n");
 
 
-        int[] a_num_input_e= {3,0,0,0,0,0,0};
-        System.out.println("a_num_input E");
-        System.out.println(Arrays.toString(a_num_input_e));
+        int[] aNumInputE= {3,0,0,0,0,0,0};
+        System.out.println("aNumInputE");
+        System.out.println(Arrays.toString(aNumInputE));
 
-        a_num_output = solution.moveZeroes(a_num_input_e);
-        System.out.println("a_num_output");
-        System.out.println(Arrays.toString(a_num_output));
+        aNumOutput = solution.moveZeroes(aNumInputE);
+        System.out.println("aNumOutput");
+        System.out.println(Arrays.toString(aNumOutput));
         System.out.println("\n");
 
 
-        int[] a_num_input_f = {3,4,5,6,7,9,0};
-        System.out.println("a_num_input E");
-        System.out.println(Arrays.toString(a_num_input_f));
+        int[] aNumInputF = {3,4,5,6,7,9,0};
+        System.out.println("aNumInputF");
+        System.out.println(Arrays.toString(aNumInputF));
 
-        a_num_output = solution.moveZeroes(a_num_input_f);
-        System.out.println("a_num_output");
-        System.out.println(Arrays.toString(a_num_output));
+        aNumOutput = solution.moveZeroes(aNumInputF);
+        System.out.println("aNumOutput");
+        System.out.println(Arrays.toString(aNumOutput));
         System.out.println("\n");
 
 
-        int[] a_num_input_g = {0,0,0,0,0,0,1};
-        System.out.println("a_num_input G");
-        System.out.println(Arrays.toString(a_num_input_g));
+        int[] aNumInputG = {0,0,0,0,0,0,1};
+        System.out.println("aNumInputG");
+        System.out.println(Arrays.toString(aNumInputG));
 
-        a_num_output = solution.moveZeroes(a_num_input_g);
-        System.out.println("a_num_output");
-        System.out.println(Arrays.toString(a_num_output));
+        aNumOutput = solution.moveZeroes(aNumInputG);
+        System.out.println("aNumOutput");
+        System.out.println(Arrays.toString(aNumOutput));
         System.out.println("\n");
 
 
-        int[] a_num_input_h = {1,0,0,0,0,0,1};
-        System.out.println("a_num_input G");
-        System.out.println(Arrays.toString(a_num_input_h));
+        int[] aNumInputH = {1,0,0,0,0,0,1};
+        System.out.println("aNumInputH");
+        System.out.println(Arrays.toString(aNumInputH));
 
-        a_num_output = solution.moveZeroes(a_num_input_h);
-        System.out.println("a_num_output");
-        System.out.println(Arrays.toString(a_num_output));
+        aNumOutput = solution.moveZeroes(aNumInputH);
+        System.out.println("aNumOutput");
+        System.out.println(Arrays.toString(aNumOutput));
 
-        int[] a_num_input_except = {};
-        solution.moveZeroes(a_num_input_except);
+        int[] aNumInputExcept = {};
+        solution.moveZeroes(aNumInputExcept);
     }
 }
