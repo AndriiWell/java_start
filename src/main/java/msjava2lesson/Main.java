@@ -10,6 +10,9 @@ public class Main {
         taskMoveZeros();
     }
 
+    /**
+     * https://leetcode.com/problems/move-zeroes/description/
+     */
     private static void taskMoveZeros() {
         Solution solution = new Solution();
 
@@ -92,6 +95,7 @@ public class Main {
         System.out.println(Arrays.toString(aNumOutput));
 
         int[] aNumInputExcept = {};
+        System.out.println("Exception EXPECTED");
         solution.moveZeroes(aNumInputExcept);
     }
 }
