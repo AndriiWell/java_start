@@ -13,17 +13,14 @@ public class Main {
         taskMoveZeros();
     }
 
-    private static void linkedListPrint(ListNode nodeStart) {
+    private static void linkedListPrint(ListNode node) {
+        if (node != null) {
+            System.out.print("Head:");
+        }
 
-        boolean isStart = true;
-        while (nodeStart != null){
-
-            if(isStart)
-                System.out.print("Head:");
-            isStart = false;
-
-            System.out.print(nodeStart.val + " -> ");
-            nodeStart = nodeStart.next;
+        while (node != null) {
+            System.out.print(node.val + " -> ");
+            node = node.next;
         }
         System.out.println("No pointer, the end...");
     }
@@ -153,8 +150,9 @@ public class Main {
         ListNode node = new ListNode(size); // The leave
         while(size-- != 0){
             node = new ListNode(size, node);
-            if(size == 0)
+            if(size == 0) {
                 head = node;
+            }
         }
 
         // Show original list.
@@ -174,8 +172,9 @@ public class Main {
         node = new ListNode(size); // The leave
         while(size-- != 0){
             node = new ListNode(size, node);
-            if(size == 0)
+            if(size == 0) {
                 head = node;
+            }
         }
 
         // Show original list.

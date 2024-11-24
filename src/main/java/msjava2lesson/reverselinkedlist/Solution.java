@@ -49,8 +49,9 @@ public class Solution {
      * @return ListNode the new head of reversed list.
      */
     public ListNode reverseListRecursively(@Nullable ListNode head) {
-        if (null == head)
+        if (null == head) {
             return null;
+        }
 
         isLengthValid(head);
         isValueCorrect(head);
@@ -66,8 +67,9 @@ public class Solution {
      * @return Liked list head;
      */
     private ListNode reverseListRecursion(@Nullable ListNode current, @Nullable ListNode previous) {
-        if(null == current)
+        if(null == current) {
             return previous;
+        }
 
         ListNode next = current.next;
         current.next = previous;
@@ -82,9 +84,10 @@ public class Solution {
      */
     private void isLengthValid(@Nullable ListNode head){
         int count = 0;
-        while (head != null){
-            if(listLengthMax <= ++count)
+        while (head != null) {
+            if(listLengthMax <= ++count) {
                 throw new LinkListInvalidException("Linked list is out of constraints.");
+            }
 
             head = head.next;
         }
@@ -96,9 +99,10 @@ public class Solution {
      * @param head Liked list head.
      */
     private void isValueCorrect(@Nullable ListNode head){
-        while (head != null){
-            if(-listLengthMax > head.val || listLengthMax < head.val)
+        while (head != null) {
+            if(-listLengthMax > head.val || listLengthMax < head.val) {
                 throw new LinkListInvalidException("Linked list node's value is out of constraints.");
+            }
 
             head = head.next;
         }
