@@ -2,14 +2,15 @@ package msjava2lesson;
 
 import msjava2lesson.moveZeroes.Solution;
 import msjava2lesson.reverselinkedlist.ListNode;
+import msjava2lesson.validparantheses.ValidParenthesesSolution;
 
 import java.util.Arrays;
 
 public class Main {
 
     public static void main(String[] args) {
-
         taskReverseLinkedList();
+        taskValidParentheses();
         taskMoveZeros();
     }
 
@@ -23,6 +24,33 @@ public class Main {
             node = node.next;
         }
         System.out.println("No pointer, the end...");
+    }
+
+    private static void taskValidParentheses() {
+
+        ValidParenthesesSolution validParenthesesSolution = new ValidParenthesesSolution();
+
+        String test = "()";
+        System.out.println("String " + test + " is" + (validParenthesesSolution.isValid(test)?"":" not") + " valid.");
+
+        test = "([])";
+        System.out.println("String " + test + " is" + (validParenthesesSolution.isValid(test)?"":" not") + " valid.");
+
+        test = "([{}])";
+        System.out.println("String " + test + " is" + (validParenthesesSolution.isValid(test)?"":" not") + " valid.");
+
+        test = "()[]{}";
+        System.out.println("String " + test + " is" + (validParenthesesSolution.isValid(test)?"":" not") + " valid.");
+
+        test = "(]";
+        System.out.println("String " + test + " is" + (validParenthesesSolution.isValid(test)?"":" not") + " valid.");
+
+        test = "[]]"; // "" // "asdasd"
+        System.out.println("String " + test + " is" + (validParenthesesSolution.isValid(test)?"":" not") + " valid.");
+
+        // For  "" and "asdasd" will throw an exception.
+        System.out.println();
+        System.out.println();
     }
 
     /**

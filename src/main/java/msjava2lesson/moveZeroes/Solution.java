@@ -19,12 +19,15 @@ public class Solution {
         for (int iNum = 0; iNum < iNumLength; iNum++) {
             iIterateValue = aNum[iNum];
             if(iValueToMoveToRear == iIterateValue) {
-                if(iEarliestValueIndexToMove == -1)
+                if(iEarliestValueIndexToMove == -1) {
                     iEarliestValueIndexToMove = iNum;
+                }
             }
             else {
-                if(iEarliestValueIndexToMove == -1) // case when array starts not from the iValueToMoveToRear value.
-                   continue;
+                if(iEarliestValueIndexToMove == -1) {
+                    // case when array starts not from the iValueToMoveToRear value.
+                    continue;
+                }
 
                 aNum[iEarliestValueIndexToMove] = aNum[iNum];
                 aNum[iNum] = iValueToMoveToRear;
