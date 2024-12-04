@@ -2,15 +2,15 @@ package lessonfour.hometask.service.impl;
 
 import lessonfour.hometask.dto.UserRegistrationDto;
 import lessonfour.hometask.dto.UserResponseDto;
-import lessonfour.hometask.exception.UserRegistrationDtoException;
+import lessonfour.hometask.exception.ValidationException;
 import lessonfour.hometask.model.User;
 import lessonfour.hometask.repository.UserRepository;
 import lessonfour.hometask.service.UserService;
 import lessonfour.hometask.validation.UserValidator;
 
 public class UserServiceImpl implements UserService {
-    private final UserValidator validator; // This property is a dependency for the class, to test methods of the class need to use Mock.
-    private final UserRepository userRepository; // This property is a dependency too, to test methods of the class need to use Mock.
+    private final UserValidator validator;
+    private final UserRepository userRepository;
 
     public UserServiceImpl(UserValidator validator, UserRepository userRepository) {
         this.validator = validator;
@@ -30,7 +30,7 @@ public class UserServiceImpl implements UserService {
             );
             user = userRepository.save(user);
             return new UserResponseDto(user.getId(), user.getEmail(), true, userRegistrationDto.getPhoneNumber().isPresent());
-        } catch (UserRegistrationDtoException e) {
+        } catch (ValidationException e) {
             System.err.println("Validation was failed for input data: " + userRegistrationDto.toString() + ", error: " + e.getMessage());
             return new UserResponseDto(0L, userRegistrationDto.getEmail(), false, false); // Empty!
         }

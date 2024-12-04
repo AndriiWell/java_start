@@ -11,11 +11,15 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-
 import java.util.Optional;
-
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.Mockito.anyLong;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 @DisplayName("Unit tests for UserServiceImpl class getUserById method")
 @ExtendWith(MockitoExtension.class)
@@ -33,6 +37,7 @@ class GetUserByIdTest {
         String phone = "+123456789";
         String pass = "Passw";
 
+        // arrange
         // To mock finding operation. Below sets: user found and returned.
         when(userRepository.findById(userId)).thenReturn(Optional.of(new User(
             userId,
@@ -40,9 +45,12 @@ class GetUserByIdTest {
             phone,
             pass
         )));
+
+        // act
         // After mocking all dependencies I can look for the user, - the action of this test.
         UserResponseDto responseDto = userService.getUserById(userId);
 
+        // assert
         assertEquals(userId, responseDto.id());
         assertEquals(email, responseDto.email());
         assertTrue(responseDto.hasPhone());
@@ -59,6 +67,7 @@ class GetUserByIdTest {
         String phone = "";
         String pass = "Passw";
 
+        // arrange
         // To mock finding operation. Below sets: user found and returned.
         when(userRepository.findById(userId)).thenReturn(Optional.of(new User(
             userId,
@@ -66,9 +75,12 @@ class GetUserByIdTest {
             phone,
             pass
         )));
+
+        // act
         // After mocking all dependencies I can look for the user, - the action of this test.
         UserResponseDto responseDto = userService.getUserById(userId);
 
+        // assert
         assertEquals(userId, responseDto.id());
         assertEquals(email, responseDto.email());
         assertFalse(responseDto.hasPhone());
@@ -82,11 +94,15 @@ class GetUserByIdTest {
     void getUserById_WithInvalidUserId_ShouldReturnValidResponseDto() {
         Long userId = anyLong();
 
+        // arrange
         // To mock finding operation. Below sets: user found and returned.
         when(userRepository.findById(userId)).thenReturn(Optional.empty());
+
+        // act
         // After mocking all dependencies I can look for the user, - the action of this test.
         UserResponseDto responseDto = userService.getUserById(userId);
 
+        // assert
         assertEquals(userId, responseDto.id());
         assertEquals("", responseDto.email());
         assertFalse(responseDto.hasPhone());
@@ -98,11 +114,15 @@ class GetUserByIdTest {
     @DisplayName("Verify when an exception was thrown during data fetching.")
     @Test
     void registerUser_UserRepositoryThrowsException_ShouldThrowException() {
-
         Long userId = anyLong();
+
+        // arrange
         when(userRepository.findById(userId)).thenThrow(new DatabaseException("Can't find user..."));
+
+        // act
         DatabaseException exception = assertThrows(DatabaseException.class,() -> userService.getUserById(userId));
 
+        // assert
         assertEquals("Can't find user...", exception.getMessage());
         verify(userRepository, times(1)).findById(userId);
     }

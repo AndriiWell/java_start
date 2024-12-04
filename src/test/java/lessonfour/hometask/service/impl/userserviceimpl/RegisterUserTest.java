@@ -3,7 +3,7 @@ package lessonfour.hometask.service.impl.userserviceimpl;
 import lessonfour.hometask.dto.UserRegistrationDto;
 import lessonfour.hometask.dto.UserResponseDto;
 import lessonfour.hometask.exception.DatabaseException;
-import lessonfour.hometask.exception.UserRegistrationDtoException;
+import lessonfour.hometask.exception.ValidationException;
 import lessonfour.hometask.model.User;
 import lessonfour.hometask.repository.UserRepository;
 import lessonfour.hometask.service.impl.UserServiceImpl;
@@ -15,11 +15,16 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
-
 import java.util.Optional;
-
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.Mockito.any;
+import static org.mockito.Mockito.doThrow;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 @DisplayName("Unit tests for UserServiceImpl class registerUser method")
 @ExtendWith(MockitoExtension.class)
@@ -40,6 +45,7 @@ class RegisterUserTest {
         String phone = "+123456789";
         String pass = "Passw";
 
+        // arrange
         // Input data.
         UserRegistrationDto registrationDto = new UserRegistrationDto(
             email,
@@ -58,9 +64,12 @@ class RegisterUserTest {
         Mockito.doNothing().when(userValidator).validate(registrationDto);
         // Just to mock saving operation. User saved and returned.
         when(userRepository.save(any(User.class))).thenReturn(userPostSave);
+
+        // act
         // After mocking all dependencies I can register user, - action of this test.
         UserResponseDto responseDto = userService.registerUser(registrationDto);
 
+        // assert
         assertEquals(userId, responseDto.id());
         assertEquals(email, responseDto.email());
         assertTrue(responseDto.hasPhone());
@@ -77,6 +86,7 @@ class RegisterUserTest {
         String phone = "+123456789";
         String pass = "Passw";
 
+        // arrange
         UserRegistrationDto invalidRegistrationDto = new UserRegistrationDto(
             email,
             Optional.of(phone),
@@ -85,16 +95,17 @@ class RegisterUserTest {
         );
 
         // Imitate an exception during validation.
-        doThrow(new UserRegistrationDtoException("Email has invalid format."))
+        doThrow(new ValidationException("Email has invalid format."))
             .when(userValidator).validate(invalidRegistrationDto);
 
+        // act
         UserResponseDto responseDto = userService.registerUser(invalidRegistrationDto);
 
+        // assert
         assertEquals(userId, responseDto.id());
         assertEquals(email, responseDto.email());
         assertFalse(responseDto.hasPhone());
         assertFalse(responseDto.isStored());
-
         verify(userValidator, times(1)).validate(invalidRegistrationDto);
         // Save is no happens, because a validation error.
         verify(userRepository, times(0)).save(any(User.class));
@@ -107,6 +118,7 @@ class RegisterUserTest {
         String phone = "+123456789";
         String pass = "Passw";
 
+        // arrange
         UserRegistrationDto registrationDto = new UserRegistrationDto(
             email,
             Optional.of(phone),
@@ -116,10 +128,12 @@ class RegisterUserTest {
 
         doThrow(new RuntimeException("Unexpected error...")).when(userValidator).validate(registrationDto);
 
+        // act
         RuntimeException exception = assertThrows(RuntimeException.class,() -> userService.registerUser(
             registrationDto
         ));
 
+        // assert
         assertEquals("Unexpected error...", exception.getMessage());
         verify(userRepository, times(0)).save(any(User.class));
     }
@@ -131,6 +145,7 @@ class RegisterUserTest {
         String email = "invalid.mail.com@";
         String pass = "Passw";
 
+        // arrange
         UserRegistrationDto registrationDto = new UserRegistrationDto(
             email,
             Optional.empty(), // Check for the empty phone below.
@@ -148,9 +163,12 @@ class RegisterUserTest {
         Mockito.doNothing().when(userValidator).validate(registrationDto);
         // Just to mock saving operation. User saved and returned.
         when(userRepository.save(any(User.class))).thenReturn(userPostSave);
+
+        // act
         // After mocking all dependencies I can register user, - action of this test.
         UserResponseDto responseDto = userService.registerUser(registrationDto);
 
+        // assert
         assertEquals(userId, responseDto.id());
         assertEquals(email, responseDto.email());
         assertFalse(responseDto.hasPhone());
@@ -162,11 +180,15 @@ class RegisterUserTest {
     @DisplayName("Verify when an exception was thrown during data saving.")
     @Test
     void registerUser_UserRepositoryThrowsException_ShouldThrowException() {
+        // arrange
         when(userRepository.save(any(User.class))).thenThrow(new DatabaseException("Bida"));
+
+        // act
         DatabaseException exception = assertThrows(DatabaseException.class,() -> userService.registerUser(
             new UserRegistrationDto("any", Optional.of("any"), "any", "any"))
         );
 
+        // assert
         assertEquals("Bida", exception.getMessage());
         verify(userRepository, times(1)).save(any(User.class));
     }

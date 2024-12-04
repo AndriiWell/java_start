@@ -25,7 +25,7 @@ public class UserRepositoryImpl implements UserRepository {
         try (Connection connection = ConnectionUtil.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(sqlRequest, Statement.RETURN_GENERATED_KEYS)
         ) {
-            preparedStatement.setString(1, user.getEmail()); // Добавил @Getter
+            preparedStatement.setString(1, user.getEmail());
             preparedStatement.setString(2, user.getPhone());
             preparedStatement.setString(3, user.getPass());
 
@@ -34,7 +34,7 @@ public class UserRepositoryImpl implements UserRepository {
             ResultSet generatedKeys = preparedStatement.getGeneratedKeys();
             if (generatedKeys.next()) {
                 Long id = generatedKeys.getObject(1, Long.class);
-                user.setId(id); // Добавил @Setter
+                user.setId(id);
             }
         } catch (SQLException e) {
             throw new DatabaseException("Can't create instance of user:"
