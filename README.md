@@ -38,8 +38,8 @@ When you finished work or before each session if didn't do it in previous:
     docker stop mysql_local
     docker rm mysql_local
 
-Liquibase
-To run database changeset in Mavem console run `mvn clean package` or setup `mvn` util for terminal, maybe need just set Environmental variables.
+Liquibase, command below need to run each time after docker container was up(commands above).
+To run database changeset in Maven console run `mvn clean package` or setup `mvn` util for terminal, maybe need just set Environmental variables.
 Liquibase config see in `liquibase.properties` file in resources.
     `mvn clean package` will start execute list of changes in db/changelog/db.changelog-master.yaml, 
 

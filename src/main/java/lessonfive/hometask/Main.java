@@ -6,6 +6,8 @@ import lessonfive.hometask.repository.RoleRepository;
 import lessonfive.hometask.repository.UserRepository;
 import lessonfive.hometask.repository.impl.RoleRepositoryImpl;
 import lessonfive.hometask.repository.impl.UserRepositoryImpl;
+import org.jetbrains.annotations.Contract;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 import java.util.function.Consumer;
@@ -137,7 +139,7 @@ public class Main {
         System.out.println("User with staff roles:");
         System.out.println(userStaff);
         System.out.println(roles);
-        userStaff.setRoles(List.of(staff, instructor, client));
+        userStaff.setRoles(List.of(staff, instructor, client)); // New set of roles for Staff privileges.
         userStaff = userRepository.update(userStaff);
         System.out.println("User with staff roles updated:");
         System.out.println(userStaff);
@@ -145,9 +147,11 @@ public class Main {
     }
 
     /**
-     * Idea generated this method,
+     * IDEA generated this method,
      * Consumer - as I understand is just covers operation what I wanted to do: one input and no output.
      */
+    @NotNull
+    @Contract(pure = true)
     private static Consumer<User> showUserData() {
         return user -> {
             System.out.println("User found:");
